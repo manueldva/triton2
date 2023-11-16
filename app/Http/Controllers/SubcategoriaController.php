@@ -59,9 +59,11 @@ class SubcategoriaController extends Controller
 
         $activo = $request->has('activo') ? 1: 0;
     
-        Subcategoria::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
- 
-        return redirect()->route('subcategorias')->with('success', 'Sub Categoria añadida con éxito');
+        $subcategoria = Subcategoria::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
+        
+        return redirect()->route('subcategorias.edit', $subcategoria->id)->with('success', 'Sub Categoria añadida con éxito');
+
+        //return redirect()->route('subcategorias')->with('success', 'Sub Categoria añadida con éxito');
     }
   
     /**
@@ -119,7 +121,9 @@ class SubcategoriaController extends Controller
         //$Categoria->update($request->all());
         $subcategoria->update(array_merge($request->all(), ['activo' => $activo]));
   
-        return redirect()->route('subcategorias')->with('success', 'Sub Categoria editada con éxito');
+        //return redirect()->route('subcategorias')->with('success', 'Sub Categoria editada con éxito');
+        return redirect()->route('subcategorias.edit', $subcategoria->id)->with('success', 'Sub Categoria editada con éxito');
+
     }
   
     /**

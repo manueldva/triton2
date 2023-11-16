@@ -27,7 +27,7 @@
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
-                <a href="{{ route('proveedores.create') }}" class="btn btn-primary">Agregar</a>
+                <a href="{{ route('proveedores.create') }}" class="btn btn-info">Nuevo</a>
             </div>
             <br>
 

@@ -67,9 +67,16 @@ class CategoriaController extends Controller
 
         $activo = $request->has('activo') ? 1: 0;
     
-        Categoria::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
+        //Categoria::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
+
+        $categoria = Categoria::create(array_merge($request->all(), [
+            'activo' => $activo,
+            'empresa_id' => Auth::user()->empresa->id
+        ]));
+           
  
-        return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
+        //return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
+        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria añadida con éxito');
     }
   
     /**
@@ -115,7 +122,6 @@ class CategoriaController extends Controller
         }
        
 
-
         $activo = $request->has('activo') ? 1: 0;
 
         $categoria = Categoria::findOrFail($id);
@@ -123,7 +129,8 @@ class CategoriaController extends Controller
         //$Categoria->update($request->all());
         $categoria->update(array_merge($request->all(), ['activo' => $activo]));
   
-        return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
+        //return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
+        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
     }
   
     /**
@@ -133,7 +140,7 @@ class CategoriaController extends Controller
     {
         
         if(Subcategoria::where('categoria_id', $id)->first()) {
-            return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene usuarios asociados.');
+            return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
         }
         
         $categoria = Categoria::findOrFail($id);

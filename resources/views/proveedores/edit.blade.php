@@ -12,6 +12,7 @@
                     <div class="card mb-4 mx-auto text-center">
                         <div class="demo-inline-spacing">
                             <button class="btn btn-primary">Guardar</button>
+                            <a href="{{ route('proveedores.create') }}" class="btn btn-info">Nuevo</a>
                             <a href="{{ route('proveedores') }}" class="btn btn-secondary">Volver</a>
                            
                         </div>
@@ -35,6 +36,11 @@
                     @if(Session::has('danger'))
                     <div class="alert alert-danger" role="alert">
                             {{ Session::get('danger') }}
+                        </div>
+                    @endif
+                    @if(Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                            {{ Session::get('success') }}
                         </div>
                     @endif
                     <div class="card mb-4">
@@ -84,7 +90,7 @@
                             </div>
                             
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="1" {{ $proveedor->activo == 1 ? 'checked' : '' }}  id="activo" name="activo" />
+                                <input class="form-check-input" type="checkbox" value="1" {{ $proveedor->activo == 1 ? 'checked' : '' }}  id="activo" name="activo"/>
                                 <label class="form-check-label" for="defaultCheck1"> Activo </label>
                             </div>
 

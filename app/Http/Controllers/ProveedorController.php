@@ -53,9 +53,11 @@ class ProveedorController extends Controller
        
         $activo = $request->has('activo') ? 1: 0;
     
-        Proveedor::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
+        $proveedor = Proveedor::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
  
-        return redirect()->route('proveedores')->with('success', 'Proveedor añadido con éxito');
+        //return redirect()->route('proveedores')->with('success', 'Proveedor añadido con éxito');
+        return redirect()->route('proveedores.edit', $proveedor->id)->with('success', 'Proveedor añadido con éxito');
+
     }
   
     /**
@@ -109,7 +111,8 @@ class ProveedorController extends Controller
         //$Categoria->update($request->all());
         $proveedor->update(array_merge($request->all(), ['activo' => $activo]));
   
-        return redirect()->route('proveedores')->with('success', 'Proveedor editado con éxito');
+        //return redirect()->route('proveedores')->with('success', 'Proveedor editado con éxito');
+        return redirect()->route('proveedores.edit', $proveedor->id)->with('success', 'Proveedor editado con éxito');
     }
   
     /**

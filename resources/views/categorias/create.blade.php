@@ -54,7 +54,7 @@
                             </div>
                            
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" />
+                                <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" checked />
                                 <label class="form-check-label" for="defaultCheck1"> Activo </label>
                             </div>
 

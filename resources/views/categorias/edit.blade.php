@@ -12,6 +12,7 @@
                     <div class="card mb-4 mx-auto text-center">
                         <div class="demo-inline-spacing">
                             <button class="btn btn-primary">Guardar</button>
+                            <a href="{{ route('categorias.create') }}" class="btn btn-info">Nuevo</a>
                             <a href="{{ route('categorias') }}" class="btn btn-secondary">Volver</a>
                            
                         </div>
@@ -35,6 +36,11 @@
                     @if(Session::has('danger'))
                     <div class="alert alert-danger" role="alert">
                             {{ Session::get('danger') }}
+                        </div>
+                    @endif
+                    @if(Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                            {{ Session::get('success') }}
                         </div>
                     @endif
                     <div class="card mb-4">
