@@ -86,11 +86,15 @@ class EmpresaController extends Controller
         $activo = $request->has('activo') ? 1: 0;
         $admin = $request->has('admin') ? 1: 0;
 
+        
         $empresa = Empresa::findOrFail($id);
         
         //$empresa->update($request->all());
-        $empresa->update(array_merge($request->all(), ['activo' => $activo, 'admin' => $admin]));
-        
+        if (Auth::user()->root != 1) {
+            $empresa->update($request->all());
+        } else {
+            $empresa->update(array_merge($request->all(), ['activo' => $activo, 'admin' => $admin]));
+        }
 
         if(Auth::user()->root !== 1 ) {
             return back()->with('success', 'Se realizaron las modificaciones.');

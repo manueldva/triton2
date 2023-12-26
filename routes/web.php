@@ -5,7 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\IvaController;
+use App\Http\Controllers\TipoproductoController;
 use App\Http\Controllers\ProveedorController;
+//use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 
@@ -87,6 +90,26 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{id}', 'destroy')->name('proveedores.destroy');
     });
 
+    Route::controller(IvaController::class)->prefix('ivas')->group(function () {
+        Route::get('', 'index')->name('ivas');
+        Route::get('create', 'create')->name('ivas.create');
+        Route::post('store', 'store')->name('ivas.store');
+        Route::get('show/{id}', 'show')->name('ivas.show');
+        Route::get('edit/{id}', 'edit')->name('ivas.edit');
+        Route::put('edit/{id}', 'update')->name('ivas.update');
+        Route::delete('destroy/{id}', 'destroy')->name('ivas.destroy');
+    });
+
+    Route::controller(TipoproductoController::class)->prefix('tipoproductos')->group(function () {
+        Route::get('', 'index')->name('tipoproductos');
+        Route::get('create', 'create')->name('tipoproductos.create');
+        Route::post('store', 'store')->name('tipoproductos.store');
+        Route::get('show/{id}', 'show')->name('tipoproductos.show');
+        Route::get('edit/{id}', 'edit')->name('tipoproductos.edit');
+        Route::put('edit/{id}', 'update')->name('tipoproductos.update');
+        Route::delete('destroy/{id}', 'destroy')->name('tipoproductos.destroy');
+    });
+
 
     Route::controller(UserController::class)->prefix('users')->group(function () {
         Route::get('', 'index')->name('users');
@@ -99,4 +122,16 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/actualizar-usuario', 'UserController@actualizarUsuario');
+
+
+    /*Route::controller(ProductoController::class)->prefix('productos')->group(function () {
+        Route::get('', 'index')->name('productos');
+        Route::get('create', 'create')->name('productos.create');
+        Route::post('store', 'store')->name('productos.store');
+        Route::get('show/{id}', 'show')->name('productos.show');
+        Route::get('edit/{id}', 'edit')->name('productos.edit');
+        Route::put('edit/{id}', 'update')->name('productos.update');
+        Route::delete('destroy/{id}', 'destroy')->name('productos.destroy');
+    });*/
+
 });

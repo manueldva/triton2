@@ -3,37 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categoria;
-use App\Models\Subcategoria;
+use App\Models\Iva;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-
-class CategoriaController extends Controller
+class IvaController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
-    /*public function index()
-    {
-        $segment = 'categorias_c';
 
-        $categorias = Categoria::paginate(5);
-  
-        return view('categorias.index', compact('categorias','segment'));
-    }*/
-    
 
     public function index(Request $request)
     {
         $query = $request->input('descripcion');
-        $segment = 'categorias_c';
+        $segment = 'ivas_c';
 
-        $categorias = Categoria::when($query, function ($query, $search) {
+        $ivas = Iva::when($query, function ($query, $search) {
             return $query->where('descripcion', 'like', "%$search%");
         })->where('empresa_id', Auth::user()->empresa->id)->paginate(5);
 
-        return view('categorias.index', compact('categorias','segment'));
+        return view('ivas.index', compact('ivas','segment'));
     }
 
     /**
@@ -41,8 +31,8 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        $segment = 'categorias_c';
-        return view('categorias.create', compact('segment'));
+        $segment = 'ivas_c';
+        return view('ivas.create', compact('segment'));
     }
   
     /**
@@ -52,16 +42,17 @@ class CategoriaController extends Controller
     {
         
         $request->validate([
-            'descripcion' => 'required|max:250',
+            'descripcion' => 'required|max:150',
+            'porcentaje' => 'required',
            
         ]);
 
-        $existe = Categoria::where('descripcion', $request->input('descripcion'))
+        $existe = Iva::where('descripcion', $request->input('descripcion'))
         ->where('empresa_id', Auth::user()->empresa->id)
         ->first();
 
         if ($existe) {
-            return back()->with('danger', 'No se puede crear esta Categoria. Ya existe en la base de datos.')->withInput();
+            return back()->with('danger', 'No se puede crear este registro. Ya existe en la base de datos.')->withInput();
         }
        
 
@@ -69,14 +60,14 @@ class CategoriaController extends Controller
     
         //Categoria::create(array_merge($request->all(), ['activo' => $activo, 'empresa_id' => Auth::user()->empresa->id]));
 
-        $categoria = Categoria::create(array_merge($request->all(), [
+        $iva = Iva::create(array_merge($request->all(), [
             'activo' => $activo,
             'empresa_id' => Auth::user()->empresa->id
         ]));
            
  
         //return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
-        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria añadida con éxito');
+        return redirect()->route('ivas.edit', $iva->id)->with('success', 'IVA añadido con éxito');
     }
   
     /**
@@ -84,10 +75,10 @@ class CategoriaController extends Controller
      */
     public function show(string $id)
     {
-        $categoria = Categoria::findOrFail($id);
-        $segment = 'categorias_c';
+        $iva = Iva::findOrFail($id);
+        $segment = 'ivas_c';
   
-        return view('categorias.show', compact('categoria','segment'));
+        return view('ivas.show', compact('iva','segment'));
     }
   
     /**
@@ -95,11 +86,11 @@ class CategoriaController extends Controller
      */
     public function edit(string $id)
     {
-        $categoria = Categoria::findOrFail($id);
+        $iva = Iva::findOrFail($id);
 
-        $segment = 'categorias_c';
+        $segment = 'ivas_c';
   
-        return view('categorias.edit', compact('categoria','segment'));
+        return view('ivas.edit', compact('iva','segment'));
     }
   
     /**
@@ -109,28 +100,29 @@ class CategoriaController extends Controller
     {
         
         $request->validate([
-            'descripcion' => 'required|max:250',
+            'descripcion' => 'required|max:150',
+            'porcentaje' => 'required',
         ]);
 
-        $existe = Categoria::where('descripcion', $request->input('descripcion'))
+        $existe = Iva::where('descripcion', $request->input('descripcion'))
         ->where('empresa_id', Auth::user()->empresa->id)
         ->where('id','<>',$id)
         ->first();
 
         if ($existe) {
-            return back()->with('danger', 'No se puede modificar esta Categoria. Ya existe en la base de datos.');
+            return back()->with('danger', 'No se puede modificar este registro. Ya existe en la base de datos.');
         }
        
 
         $activo = $request->has('activo') ? 1: 0;
 
-        $categoria = Categoria::findOrFail($id);
+        $iva = Iva::findOrFail($id);
         
         //$Categoria->update($request->all());
-        $categoria->update(array_merge($request->all(), ['activo' => $activo]));
+        $iva->update(array_merge($request->all(), ['activo' => $activo]));
   
         //return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
-        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
+        return redirect()->route('ivas.edit', $iva->id)->with('success', 'IVA editado con éxito');
     }
   
     /**
@@ -139,15 +131,16 @@ class CategoriaController extends Controller
     public function destroy(string $id)
     {
         
+        /*
         if(Subcategoria::where('categoria_id', $id)->first()) {
             return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
         }
+        */
         
-        $categoria = Categoria::findOrFail($id);
+        $iva = Iva::findOrFail($id);
   
-        $categoria->delete();
+        $iva->delete();
   
-        return redirect()->route('categorias')->with('success', 'Categoria eliminada con éxito');
+        return redirect()->route('ivas')->with('success', 'Iva eliminado con éxito');
     }
-
 }

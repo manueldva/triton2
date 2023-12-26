@@ -48,7 +48,7 @@ class ProveedorController extends Controller
         ->first();
 
         if ($existe) {
-            return back()->with('danger', 'No se puede crear esta Proveedor. Ya existe en la base de datos.');
+            return back()->with('danger', 'No se puede crear esta Proveedor. Ya existe en la base de datos.')->withInput();
         }
        
         $activo = $request->has('activo') ? 1: 0;

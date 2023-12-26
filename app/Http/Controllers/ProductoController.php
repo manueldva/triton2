@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
+use App\Models\Iva;
+use App\Models\Producto;
+use App\Models\Proveedor;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class SubcategoriaController extends Controller
+class ProductoController extends Controller
 {
     public function index(Request $request)
     {
