@@ -39,11 +39,17 @@
         @if(Auth::user()->root == 1)
           <div class="mb-3">
               <br>
-              <select class="form-select" id="allempresa_id" name="allempresa_id" aria-label="Default select example">
-                  @foreach($empresas as $id => $descripcion)
-                      <option value="{{ $id }}" @if ($id == Auth::user()->empresa->id) selected @endif>{{ $descripcion }}</option>
-                  @endforeach
-              </select>
+              
+              <form action="{{ route('users.updateEmpresa') }}" method="POST">
+                @csrf
+                <select class="form-select" id="allempresa_id" name="allempresa_id" aria-label="Default select example">
+                    @foreach($empresas as $id => $descripcion)
+                        <option value="{{ $id }}" @if ($id == Auth::user()->empresa->id) selected @endif>{{ $descripcion }}</option>
+                    @endforeach
+                </select>
+            </form>
+
+              
           </div>
         @endif
         &nbsp;

@@ -119,9 +119,14 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('users.edit');
         Route::put('edit/{id}', 'update')->name('users.update');
         Route::delete('destroy/{id}', 'destroy')->name('users.destroy');
+        // Agrega la siguiente línea para la nueva ruta
+        Route::post('update-empresa', 'updateEmpresa')->name('users.updateEmpresa');
     });
 
-    Route::post('/actualizar-usuario', 'UserController@actualizarUsuario');
+   
+
+    //Route::post('/actualizar-empresa', 'UserController@updateEmpresa');
+
 
 
     /*Route::controller(ProductoController::class)->prefix('productos')->group(function () {

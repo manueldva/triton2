@@ -121,7 +121,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">{{Auth::user()->empresa->descripcion }}<!--{{ config('app.name', 'Gestion') }}--></span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">{{ Str::limit(Auth::user()->empresa->descripcion, 10)  }}<!--{{ config('app.name', 'Gestion') }}--></span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -230,6 +230,13 @@
               }
           });
       });
+
+      document.getElementById('allempresa_id').addEventListener('change', function() {
+          this.form.submit();
+      });
+</script>
+
+
   </script>
 
     @yield('js')

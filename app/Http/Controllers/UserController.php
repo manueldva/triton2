@@ -139,15 +139,13 @@ class UserController extends Controller
     }
 
 
-    public function actualizarUsuario(Request $request) {
-        $empresaId = $request->input('empresa_id');
-    
-        // Realiza la actualización en la tabla 'users'
-        // Por ejemplo, actualiza el campo 'empresa_id' para el usuario autenticado
-        $user = User::findOrFail(Auth::user()->id);
-        $user->update(['empresa_id' =>$empresaId]);
-    
-        // Puedes realizar otras acciones, como enviar una respuesta JSON
-        return response()->json(['message' => 'Usuario actualizado correctamente']);
+    public function updateEmpresa(Request $request)
+    {
+        $user = Auth::user();
+        $user->empresa_id = $request->allempresa_id;
+        $user->save();
+
+        return redirect()->back();
     }
+
 }
