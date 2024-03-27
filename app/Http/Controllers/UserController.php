@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Empresa;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
@@ -37,29 +39,49 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $request->validate([
             'email'     => 'required|email|unique:users,email|max:255',
             'name'      => 'required|max:255',
             'password'  => 'required|max:255',
             'empresa_id'=> 'required',
+            'photo' => 'image|nullable|max:1999'
         ]);
 
-        $activo = $request->has('activo') ? 1: 0;
-        //$admin = $request->has('admin') ? 1: 0;
 
-        //User::create(array_merge($request->all(), ['activo' => $activo]));
+        $nombreArchivo = null;
+        $nombreArchivoParaGuardar = null;
+        if ($request->hasFile('photo')) {
+            // Obtener el nombre original del archivo con su extensión
+            $nombreConExtension = $request->file('photo')->getClientOriginalName();
+            // Obtener solo el nombre del archivo sin la extensión
+            $nombreArchivo = pathinfo($nombreConExtension, PATHINFO_FILENAME);
+            // Obtener solo la extensión del archivo
+            $extensionArchivo = $request->file('photo')->getClientOriginalExtension();
+            // Concatenar el nombre del archivo con la extensión
+            $nombreArchivoParaGuardar = $nombreArchivo . '.' . $extensionArchivo;
+            // Guardar el archivo en el disco especificado y con el nombre proporcionado
+            $request->file('photo')->storeAs('public/photos', $nombreArchivoParaGuardar);
+        }
+
+        $activo = $request->has('activo') ? 1 : 0;
+
+
+        // Crear el usuario con todos los datos, incluyendo el nombre de la foto
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'empresa_id' => $request->empresa_id,
             'password' => Hash::make($request->password),
-            'activo' => $activo
+            'activo' => $activo,
+            'photo' => $nombreArchivoParaGuardar // Guardar solo el nombre del archivo
         ]);
- 
+
         return redirect()->route('users')->with('success', 'Usuario añadido con éxito');
     }
+
+
   
     /**
      * Display the specified resource.
@@ -90,35 +112,51 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        $user = User::findOrFail($id);
 
         $request->validate([
             'email'     => 'required|email|max:255|unique:users,email,' . $id,
             'name'      => 'required|max:255',
             'empresa_id'=> 'required',
+            'photo'     => 'image|nullable|max:1999',
         ]);
 
-        $activo = $request->has('activo') ? 1: 0;
+        $activo = $request->has('activo') ? 1 : 0;
 
-        $user = User::findOrFail($id);
-        
         $updates = [
             'name' => $request->name,
             'email' => $request->email,
             'empresa_id' => $request->empresa_id,
             'activo' => $activo,
         ];
-        
+
         if ($request->has('password') && !empty($request->password)) {
             $updates['password'] = Hash::make($request->password);
         }
-        
+
+        if ($request->hasFile('photo')) {
+            // Eliminar la foto antigua si existe
+            if ($user->photo && Storage::exists('public/photos/' . $user->photo)) {
+                Storage::delete('public/photos/' . $user->photo);
+            }
+
+            // Guardar la nueva foto y actualizar el nombre del archivo
+            $nombreConExtension = $request->file('photo')->getClientOriginalName();
+            $nombreArchivo = pathinfo($nombreConExtension, PATHINFO_FILENAME);
+            $extensionArchivo = $request->file('photo')->getClientOriginalExtension();
+            $nombreArchivoParaGuardar = $nombreArchivo . '_' . time() . '.' . $extensionArchivo;
+            $request->file('photo')->storeAs('public/photos', $nombreArchivoParaGuardar);
+            $updates['photo'] = $nombreArchivoParaGuardar;
+        } elseif (!$request->hasFile('photo') && $user->photo) {
+            // Mantener la foto actual si no se sube una nueva
+            $updates['photo'] = $user->photo;
+        }
+
         $user->update($updates);
 
-        //$empresa->update($request->all());
-  
         return redirect()->route('users')->with('success', 'Usuario editado con éxito');
     }
+
   
     /**
      * Remove the specified resource from storage.

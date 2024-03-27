@@ -58,8 +58,14 @@
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="{{ asset('admin_assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
-            </div>
+              @isset(Auth::user()->photo)
+                  <img src="{{ asset('storage/photos/' . Auth::user()->photo) }}" alt="Foto del usuario" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle" />
+              @else
+                  <!-- Puedes poner una imagen predeterminada o dejarlo en blanco según prefieras -->
+                  <img src="{{ asset('admin_assets/img/avatars/1.png') }}" alt="Foto por defecto" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle" />
+              @endisset
+          </div>
+
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
@@ -67,8 +73,14 @@
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="{{ asset('admin_assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                        @isset(Auth::user()->photo)
+                            <img src="{{ asset('storage/photos/' . Auth::user()->photo) }}" alt="Foto del usuario" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle" />
+                        @else
+                            <!-- Puedes poner una imagen predeterminada o dejarlo en blanco según prefieras -->
+                            <img src="{{ asset('admin_assets/img/avatars/1.png') }}" alt="Foto por defecto" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle" />
+                        @endisset
                     </div>
+
                   </div>
                   <div class="flex-grow-1">
                     <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>

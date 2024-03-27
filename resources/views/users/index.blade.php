@@ -1,6 +1,8 @@
 @extends('layouts.app')
+
   
 @section('title', 'Gestionar Usuarios')
+
   
 @section('contents')
     
@@ -52,28 +54,32 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button
-                                                type="button"
-                                                class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown"
-                                            >
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('users.edit', $rs->id)}}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                                                
-                                               
+                                        @if(Auth::user()->root == 0 && $rs->root == 1)
+                                            <span class="badge bg-label-danger me-1">X</span>
+                                        @else
+                                            <div class="dropdown">
+                                                <button
+                                                    type="button"
+                                                    class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown"
+                                                >
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="{{ route('users.edit', $rs->id)}}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
+                                                    
+                                                   
 
-                                                <form action="{{ route('users.destroy', $rs->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                                        <i class="bx bx-trash me-1"></i>Eliminar
-                                                    </button>
-                                                </form>
+                                                    <form action="{{ route('users.destroy', $rs->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                                                            <i class="bx bx-trash me-1"></i>Eliminar
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -124,5 +130,7 @@
             $('form').submit(); // Enviar el formulario
         });
     });
+
+
 </script>
 @endsection

@@ -49,6 +49,8 @@
 
     <!-- Page CSS -->
 
+     @yield('styles')
+
     <!-- Helpers -->
     <script src="{{ asset('admin_assets/vendor/js/helpers.js') }}"></script>
 

@@ -3,7 +3,7 @@
 @section('title', 'Editar Empresa')
   
 @section('contents')
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
@@ -76,6 +76,15 @@
                                         <option value="{{ Auth::user()->empresa->id }}">{{ Auth::user()->empresa->descripcion }}</option>
                                     @endif
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                                @if ($user->photo)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('storage/photos/' . $user->photo) }}" alt="Foto actual" style="max-width: 100px;">
+                                    </div>
+                                @endif
                             </div>
                             @if(Auth::user()->root == 1)
                                 <div class="form-check mt-3">

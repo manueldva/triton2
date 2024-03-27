@@ -76,6 +76,10 @@
                                     @endif
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                 <label for="name" class="form-label">Seleccione una Foto</label>
+                                <input type="file" name="photo" accept="image/*">
+                            </div>
                             @if(Auth::user()->root == 1)
                                 <div class="form-check mt-3">
                                     <input class="form-check-input" type="checkbox" value="1" id="root" name="root" />
