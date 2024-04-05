@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'empresa_id',
         'activo',
-        'photo'
+        'photo',
+        'tipouser_id'
     ];
 
     /**
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function empresa(): BelongsTo
     {
         return $this->belongsTo(Empresa::class);
+    }
+
+    public function tipousers(): HasMany
+    {
+        return $this->hasMany(Tipouser::class);
     }
 }

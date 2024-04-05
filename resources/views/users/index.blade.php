@@ -57,27 +57,27 @@
                                         @if(Auth::user()->root == 0 && $rs->root == 1)
                                             <span class="badge bg-label-danger me-1">X</span>
                                         @else
-                                            <div class="dropdown">
-                                                <button
-                                                    type="button"
-                                                    class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown"
-                                                >
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('users.edit', $rs->id)}}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                                                    
-                                                   
-
+                                            <div class="btn-group">
+                                              <button
+                                                type="button"
+                                                class="btn btn-outline-secondary dropdown-toggle"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                Acción
+                                              </button>
+                                              <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item"  href="{{ route('users.edit', $rs->id)}}">Editar</a></li>
+                                                <li>
                                                     <form action="{{ route('users.destroy', $rs->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                                            <i class="bx bx-trash me-1"></i>Eliminar
+                                                            Eliminar
                                                         </button>
                                                     </form>
-                                                </div>
+                                                </li>
+                                            
+                                              </ul>
                                             </div>
                                         @endif
                                     </td>
@@ -100,6 +100,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
