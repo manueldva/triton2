@@ -57,28 +57,13 @@
                                         @if(Auth::user()->root == 0 && $rs->root == 1)
                                             <span class="badge bg-label-danger me-1">X</span>
                                         @else
-                                            <div class="btn-group">
-                                              <button
-                                                type="button"
-                                                class="btn btn-outline-secondary dropdown-toggle"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                Acción
-                                              </button>
-                                              <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item"  href="{{ route('users.edit', $rs->id)}}">Editar</a></li>
-                                                <li>
-                                                    <form action="{{ route('users.destroy', $rs->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                                            Eliminar
-                                                        </button>
-                                                    </form>
-                                                </li>
                                             
-                                              </ul>
-                                            </div>
+                                            @component('components.button-menu', ['menuItems' => [
+                                                ['url' => route('users.edit', $rs->id), 'label' => 'Editar'],
+                                                ['url' => route('users.destroy', $rs->id), 'label' => 'Eliminar'],
+                                            ]])
+                                            @endcomponent
+
                                         @endif
                                     </td>
                                 </tr>
@@ -101,24 +86,9 @@
         </div>
     </div>
 
+    @component('components.modal-delete')
+    @endcomponent
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--/ Bordered Table -->
 @endsection
 

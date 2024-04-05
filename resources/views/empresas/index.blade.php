@@ -50,28 +50,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button
-                                                type="button"
-                                                class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown"
-                                            >
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('empresas.edit', $rs->id)}}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                                                
-                                               
-
-                                                <form action="{{ route('empresas.destroy', $rs->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                                        <i class="bx bx-trash me-1"></i>Eliminar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
+                                                                                   
+                                        @component('components.button-menu', ['menuItems' => [
+                                            ['url' => route('empresas.edit', $rs->id), 'label' => 'Editar'],
+                                            ['url' => route('empresas.destroy', $rs->id), 'label' => 'Eliminar'],
+                                        ]])
+                                        @endcomponent
                                     </td>
                                 </tr>
                             @endforeach
@@ -93,23 +77,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @component('components.modal-delete')
+    @endcomponent
     <!--/ Bordered Table -->
 @endsection
 
