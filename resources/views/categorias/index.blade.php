@@ -4,6 +4,10 @@
   
 @section('contents')
     
+
+    @component('components.categoria.categoria-modal-create')
+    @endcomponent
+    
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
@@ -27,7 +31,10 @@
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
-                <a href="{{ route('categorias.create') }}" class="btn btn-info">Nuevo</a>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#categoriaModalCreate">
+                    Nuevo
+                </button>
+
             </div>
             <br>
 
@@ -35,10 +42,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Descripcion</th>
-                            <th>Activo</th>
-                            <th>Action</th>
+                            <th><center>#</center></th>
+                            <th><center>Descripcion</center></th>
+                            <th><center>Activo</center></th>
+                            <th><center>Action</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,39 +53,36 @@
                             @foreach($categorias as $rs)
                                 <tr>
                                     <td>
+                                        <center>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong>
+                                        </center>
                                     </td>
-                                    <td>{{ $rs->descripcion }}</td>
+                                    <td><center>{{ $rs->descripcion }}</center></td>
                                     <td>
+                                        <center>
                                         @if($rs->activo == 1)
                                             <span class="badge bg-label-success me-1">Activo</span>
                                         @else
                                             <span class="badge bg-label-warning me-1">Inactivo</span>
                                         @endif
+                                        </center>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button
-                                                type="button"
-                                                class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown"
-                                            >
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('categorias.edit', $rs->id)}}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                                                
-                                               
+                                        <center>
+                                        <!-- Aquí incluirías el componente del modal de edición -->
+                                        @component('components.categoria.categoria-modal-edit', ['categoria' => $rs])
+                                        @endcomponent
 
-                                                <form action="{{ route('categorias.destroy', $rs->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                                        <i class="bx bx-trash me-1"></i>Eliminar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        @component('components.button-menu', [
+                                            'menuItems' => [
+                                                ['url' => route('categorias.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#categoriaModalEdit'.$rs->id],
+                                                ['url' => route('categorias.destroy', $rs->id), 'label' => 'Eliminar'],
+                                                // ... otros ítems del menú
+                                            ],
+                                            'categoria' => $rs // Pasar la categoría como parámetro adicional
+                                        ])
+                                        @endcomponent
+                                        </center>
                                     </td>
                                 </tr>
                             @endforeach
@@ -89,36 +93,19 @@
                         @endif
                     </tbody>
                 </table>
-                @if($categorias->count() == 1 || $categorias->count() == 2)
-                <br>
-                <br>
-                <br>
-                @endif
-                <br>
                 {{ $categorias->links() }}
             </div>
+
         </div>
     </div>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
+    @component('components.modal-delete')
+    @endcomponent
     <!--/ Bordered Table -->
+
 @endsection
+
 
 @section('js')
 <script>
@@ -131,3 +118,4 @@
     });
 </script>
 @endsection
+

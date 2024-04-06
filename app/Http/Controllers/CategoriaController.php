@@ -75,8 +75,8 @@ class CategoriaController extends Controller
         ]));
            
  
-        //return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
-        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria añadida con éxito');
+        return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
+        //return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria añadida con éxito');
     }
   
     /**
@@ -129,8 +129,8 @@ class CategoriaController extends Controller
         //$Categoria->update($request->all());
         $categoria->update(array_merge($request->all(), ['activo' => $activo]));
   
-        //return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
-        return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
+        return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
+        //return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
     }
   
     /**
@@ -138,7 +138,7 @@ class CategoriaController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        //dd($id);
         if(Subcategoria::where('categoria_id', $id)->first()) {
             return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
         }

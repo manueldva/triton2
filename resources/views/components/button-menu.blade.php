@@ -4,7 +4,14 @@
     </button>
     <ul class="dropdown-menu">
         @foreach ($menuItems as $item)
-            @if($item['label'] == 'Eliminar')
+            @if(isset($item['modal']) && $item['modal'] === true)
+                <!-- Botón para abrir el modal de edición -->
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="{{ $item['modalTarget'] }}">
+                        {{ $item['label'] }}
+                    </button>
+                </li>
+            @elseif($item['label'] == 'Eliminar')
                 <li>
                     <form action="{{ $item['url'] }}" method="POST">
                         @csrf
