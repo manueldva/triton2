@@ -31,7 +31,7 @@
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#categoriaModalCreate">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoriaModalCreate">
                     Nuevo
                 </button>
 
@@ -93,7 +93,13 @@
                         @endif
                     </tbody>
                 </table>
-                {{ $categorias->links() }}
+                 @if($categorias->count() == 1 || $categorias->count() == 2)
+                <br>
+                <br>
+                <br>
+                @endif
+                <br>
+                {{ $categorias->appends(['descripcion' => request('descripcion')])->links() }}
             </div>
 
         </div>

@@ -20,14 +20,14 @@
       <div data-i18n="users">Usuario</div>
     </a>
   </li>-->
-  <li class="menu-item @if($segment == 'users')  open @endif" >
+  <li class="menu-item @if(substr($segment, -1)=='s')  open @endif" >
     <a href="javascript:void(0);" class="menu-link menu-toggle">
-      <i class="menu-icon tf-icons bx bx-cog"></i>
+      <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
       <div data-i18n="config">Seguridad</div>
       <!--<div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>-->
     </a>
     <ul class="menu-sub">
-      <li class="menu-item @if($segment == 'users') active @endif">
+      <li class="menu-item @if($segment == 'users_s') active @endif">
         <a  href="{{ route('users') }}" class="menu-link">
           <div data-i18n="users">Usuario </div>
         </a>

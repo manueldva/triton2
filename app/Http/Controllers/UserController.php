@@ -15,11 +15,18 @@ class UserController extends Controller
      /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $segment = 'users';
+        $query = $request->input('descripcion');
+        $segment = 'users_s';
 
-        $users = User::where('empresa_id',Auth::user()->empresa->id)->paginate(5);
+        //$users = User::where('empresa_id',Auth::user()->empresa->id)->paginate(5);
+
+        $users = User::when($query, function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        })->where('empresa_id', Auth::user()->empresa->id)->paginate(5);
+
+        $users->appends(['descripcion' => request('descripcion')]);
   
         return view('users.index', compact('users','segment'));
     }
@@ -29,7 +36,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $segment = 'users';
+        $segment = 'users_s';
         $empresas = Empresa::where('activo', 1)->pluck('descripcion', 'id');
         //dd($empresas);
   
@@ -89,7 +96,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $empresa = Empresa::findOrFail($id);
-        $segment = 'users';
+        $segment = 'users_s';
   
         return view('users.show', compact('empresa','segment'));
     }
@@ -99,7 +106,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $segment = 'users';
+        $segment = 'users_s';
         
         $user = User::findOrFail($id);
         $empresas = Empresa::where('activo', 1)->pluck('descripcion', 'id');

@@ -33,6 +33,8 @@ class CategoriaController extends Controller
             return $query->where('descripcion', 'like', "%$search%");
         })->where('empresa_id', Auth::user()->empresa->id)->paginate(5);
 
+        $categorias->appends(['descripcion' => request('descripcion')]);
+
         return view('categorias.index', compact('categorias','segment'));
     }
 
@@ -51,10 +53,11 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         
+        /*
         $request->validate([
             'descripcion' => 'required|max:250',
            
-        ]);
+        ]);*/
 
         $existe = Categoria::where('descripcion', $request->input('descripcion'))
         ->where('empresa_id', Auth::user()->empresa->id)
@@ -75,7 +78,8 @@ class CategoriaController extends Controller
         ]));
            
  
-        return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
+        return back()->with('success', 'Categoria añadida con éxito');
+        //return redirect()->route('categorias')->with('success', 'Categoria añadida con éxito');
         //return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria añadida con éxito');
     }
   
@@ -108,9 +112,9 @@ class CategoriaController extends Controller
     public function update(Request $request, string $id)
     {
         
-        $request->validate([
+        /*$request->validate([
             'descripcion' => 'required|max:250',
-        ]);
+        ]);*/
 
         $existe = Categoria::where('descripcion', $request->input('descripcion'))
         ->where('empresa_id', Auth::user()->empresa->id)
@@ -129,7 +133,8 @@ class CategoriaController extends Controller
         //$Categoria->update($request->all());
         $categoria->update(array_merge($request->all(), ['activo' => $activo]));
   
-        return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
+        return back()->with('success', 'Categoria editada con éxito');
+        //return redirect()->route('categorias')->with('success', 'Categoria editada con éxito');
         //return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
     }
   

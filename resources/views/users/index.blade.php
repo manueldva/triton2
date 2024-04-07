@@ -19,11 +19,18 @@
 
     <!-- Bordered Table -->
     <div class="card">
+        <h3 class="card-header">Listado</h3>  
         <div class="card-body">
             <div class="demo-inline-spacing d-flex align-items-center justify-content-between">
-                <h3 class="card-header">Listado</h3>    
-                <a href="{{ route('users.create') }}" class="btn btn-primary">Agregar</a>
+                <form>
+                    <div class="input-group">
+                        <input type="text" name="descripcion" class="form-control" placeholder="Buscar por Nombre" value="{{ request('descripcion') }}">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo</a>
             </div>
+            <br>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -81,7 +88,7 @@
                 <br>
                 @endif
                 <br>
-                {{ $users->links() }}
+                {{ $users->appends(['descripcion' => request('descripcion')])->links() }}
             </div>
         </div>
     </div>
