@@ -2,16 +2,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="categoriaModalLabel">Crear Categoría</h5>
+                <h5 class="modal-title" id="categoriaModalLabel">Crear {{ $descripcion }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('categorias.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ $url }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <!-- Campos del formulario -->
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Deco" required maxlength="250">
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Deco Prueba" required maxlength="250">
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" checked>

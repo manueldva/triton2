@@ -36,11 +36,11 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nombre Completo</th>
-                            <th>Email</th>
-                            <th>Empresa</th>
-                            <th>Activo</th>
-                            <th>Action</th>
+                            <th><center>Nombre Completo</center></th>
+                            <th><center>Email</center></th>
+                            <th><center>Empresa</center></th>
+                            <th><center>Activo</center></th>
+                            <th><center>Action</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,17 +50,20 @@
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong>
                                     </td>
-                                    <td>{{ $rs->name }}</td>
-                                    <td>{{ $rs->email }}</td>
-                                    <td>{{ $rs->empresa->descripcion }}</td>
+                                    <td><center>{{ $rs->name }}</center></td>
+                                    <td><center>{{ $rs->email }}</center></td>
+                                    <td><center>{{ $rs->empresa->descripcion }}</center></td>
                                     <td>
+                                        <center>
                                         @if($rs->activo == 1)
                                             <span class="badge bg-label-success me-1">Activo</span>
                                         @else
                                             <span class="badge bg-label-warning me-1">Inactivo</span>
                                         @endif
+                                        </center>
                                     </td>
                                     <td>
+                                        <center>
                                         @if(Auth::user()->root == 0 && $rs->root == 1)
                                             <span class="badge bg-label-danger me-1">X</span>
                                         @else
@@ -72,6 +75,7 @@
                                             @endcomponent
 
                                         @endif
+                                        </center>
                                     </td>
                                 </tr>
                             @endforeach

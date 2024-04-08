@@ -4,8 +4,7 @@
   
 @section('contents')
     
-
-    @component('components.categoria.categoria-modal-create')
+    @component('components.modal-create',['url' => route('categorias.store'), 'descripcion' => 'Categoria' ])
     @endcomponent
     
     @if(Session::has('success'))
@@ -70,16 +69,16 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.categoria.categoria-modal-edit', ['categoria' => $rs])
+                                        @component('components.modal-edit', ['url' => route('categorias.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Categoria'])
                                         @endcomponent
 
                                         @component('components.button-menu', [
                                             'menuItems' => [
-                                                ['url' => route('categorias.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#categoriaModalEdit'.$rs->id],
+                                                ['url' => route('categorias.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
                                                 ['url' => route('categorias.destroy', $rs->id), 'label' => 'Eliminar'],
                                                 // ... otros ítems del menú
                                             ],
-                                            'categoria' => $rs // Pasar la categoría como parámetro adicional
+                                            'rs' => $rs // Pasar la categoría como parámetro adicional
                                         ])
                                         @endcomponent
                                         </center>

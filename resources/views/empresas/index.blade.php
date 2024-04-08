@@ -17,20 +17,27 @@
 
     <!-- Bordered Table -->
     <div class="card">
+        <h3 class="card-header">Listado</h3>   
         <div class="card-body">
             <div class="demo-inline-spacing d-flex align-items-center justify-content-between">
-                <h3 class="card-header">Listado</h3>    
-                <a href="{{ route('empresas.create') }}" class="btn btn-primary">Agregar</a>
+                 <form>
+                    <div class="input-group">
+                        <input type="text" name="descripcion" class="form-control" placeholder="Buscar por Descripcion" value="{{ request('descripcion') }}">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form> 
+                <a href="{{ route('empresas.create') }}" class="btn btn-primary">Nuevo</a>
             </div>
+            <br>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Descripcion</th>
-                            <th>Direccion</th>
-                            <th>Activo</th>
-                            <th>Action</th>
+                            <th><center>Descripcion</center></th>
+                            <th><center>Direccion</center></th>
+                            <th><center>Activo</center></th>
+                            <th><center>Action</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,22 +47,25 @@
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong>
                                     </td>
-                                    <td>{{ $rs->descripcion }}</td>
-                                    <td>{{ $rs->direccion }}</td>
+                                    <td><center>{{ $rs->descripcion }}</center></td>
+                                    <td><center>{{ $rs->direccion }}</center></td>
                                     <td>
+                                        <center>
                                         @if($rs->activo == 1)
                                             <span class="badge bg-label-success me-1">Activo</span>
                                         @else
                                             <span class="badge bg-label-warning me-1">Inactivo</span>
                                         @endif
+                                        </center>
                                     </td>
                                     <td>
-                                                                                   
+                                        <center>                                           
                                         @component('components.button-menu', ['menuItems' => [
                                             ['url' => route('empresas.edit', $rs->id), 'label' => 'Editar'],
                                             ['url' => route('empresas.destroy', $rs->id), 'label' => 'Eliminar'],
                                         ]])
                                         @endcomponent
+                                        </center>
                                     </td>
                                 </tr>
                             @endforeach
@@ -72,7 +82,7 @@
                 <br>
                 @endif
                 <br>
-                {{ $empresas->links() }}
+                {{ $empresas->appends(['descripcion' => request('descripcion')])->links() }}
             </div>
         </div>
     </div>

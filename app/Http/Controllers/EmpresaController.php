@@ -13,11 +13,18 @@ class EmpresaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = $request->input('descripcion');
         $segment = 'empresas';
 
-        $empresas = Empresa::paginate(5);
+        //$empresas = Empresa::paginate(5);
+
+         $empresas = Empresa::when($query, function ($query, $search) {
+            return $query->where('descripcion', 'like', "%$search%");
+        })->paginate(5);
+
+        $empresas->appends(['descripcion' => request('descripcion')]);
   
         return view('empresas.index', compact('empresas','segment'));
     }
