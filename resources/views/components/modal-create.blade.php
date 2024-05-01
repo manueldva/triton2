@@ -11,7 +11,7 @@
                     <!-- Campos del formulario -->
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Deco Prueba" required maxlength="250">
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese el texto" required maxlength="250">
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" checked>

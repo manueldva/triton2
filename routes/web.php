@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\SubcategoriaController;
-use App\Http\Controllers\IvaController;
-use App\Http\Controllers\TipoproductoController;
-use App\Http\Controllers\ProveedorController;
-//use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\TipouserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 
@@ -69,47 +65,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{id}', 'destroy')->name('categorias.destroy');
     });
 
-    Route::controller(SubcategoriaController::class)->prefix('subcategorias')->group(function () {
-        Route::get('', 'index')->name('subcategorias');
-        Route::get('create', 'create')->name('subcategorias.create');
-        Route::post('store', 'store')->name('subcategorias.store');
-        Route::get('show/{id}', 'show')->name('subcategorias.show');
-        Route::get('edit/{id}', 'edit')->name('subcategorias.edit');
-        Route::put('edit/{id}', 'update')->name('subcategorias.update');
-        Route::delete('destroy/{id}', 'destroy')->name('subcategorias.destroy');
-    });
-
-
-    Route::controller(ProveedorController::class)->prefix('proveedores')->group(function () {
-        Route::get('', 'index')->name('proveedores');
-        Route::get('create', 'create')->name('proveedores.create');
-        Route::post('store', 'store')->name('proveedores.store');
-        Route::get('show/{id}', 'show')->name('proveedores.show');
-        Route::get('edit/{id}', 'edit')->name('proveedores.edit');
-        Route::put('edit/{id}', 'update')->name('proveedores.update');
-        Route::delete('destroy/{id}', 'destroy')->name('proveedores.destroy');
-    });
-
-    Route::controller(IvaController::class)->prefix('ivas')->group(function () {
-        Route::get('', 'index')->name('ivas');
-        Route::get('create', 'create')->name('ivas.create');
-        Route::post('store', 'store')->name('ivas.store');
-        Route::get('show/{id}', 'show')->name('ivas.show');
-        Route::get('edit/{id}', 'edit')->name('ivas.edit');
-        Route::put('edit/{id}', 'update')->name('ivas.update');
-        Route::delete('destroy/{id}', 'destroy')->name('ivas.destroy');
-    });
-
-    Route::controller(TipoproductoController::class)->prefix('tipoproductos')->group(function () {
-        Route::get('', 'index')->name('tipoproductos');
-        Route::get('create', 'create')->name('tipoproductos.create');
-        Route::post('store', 'store')->name('tipoproductos.store');
-        Route::get('show/{id}', 'show')->name('tipoproductos.show');
-        Route::get('edit/{id}', 'edit')->name('tipoproductos.edit');
-        Route::put('edit/{id}', 'update')->name('tipoproductos.update');
-        Route::delete('destroy/{id}', 'destroy')->name('tipoproductos.destroy');
-    });
-
 
     Route::controller(UserController::class)->prefix('users')->group(function () {
         Route::get('', 'index')->name('users');
@@ -121,6 +76,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{id}', 'destroy')->name('users.destroy');
         // Agrega la siguiente línea para la nueva ruta
         Route::post('update-empresa', 'updateEmpresa')->name('users.updateEmpresa');
+    });
+
+    Route::controller(TipouserController::class)->prefix('tipousers')->group(function () {
+        Route::get('', 'index')->name('tipousers');
+        Route::get('create', 'create')->name('tipousers.create');
+        Route::post('store', 'store')->name('tipousers.store');
+        Route::get('show/{id}', 'show')->name('tipousers.show');
+        Route::get('edit/{id}', 'edit')->name('tipousers.edit');
+        Route::put('edit/{id}', 'update')->name('tipousers.update');
+        Route::delete('destroy/{id}', 'destroy')->name('tipousers.destroy');
     });
 
    

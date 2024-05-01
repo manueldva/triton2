@@ -13,7 +13,7 @@ class Tipouser extends Model
     use HasApiTokens, HasFactory;
     
     protected $fillable = [
-        'descripcion','activo' 
+        'descripcion','activo','empresa_id'
     ];
 
 
