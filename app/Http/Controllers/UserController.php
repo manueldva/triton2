@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Empresa;
+use App\Models\Tipouser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -38,9 +39,10 @@ class UserController extends Controller
     {
         $segment = 'users_s';
         $empresas = Empresa::where('activo', 1)->pluck('descripcion', 'id');
+        $tipousers = Tipouser::where('activo', 1)->where('empresa_id', Auth::user()->empresa->id)->pluck('descripcion', 'id');
         //dd($empresas);
   
-        return view('users.create', compact('segment','empresas'));
+        return view('users.create', compact('segment','empresas','tipousers'));
     }
   
     /**
@@ -80,6 +82,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'empresa_id' => $request->empresa_id,
+            'tipouser_id' => $request->tipouser_id,
             'password' => Hash::make($request->password),
             'activo' => $activo,
             'photo' => $nombreArchivoParaGuardar // Guardar solo el nombre del archivo
@@ -110,8 +113,9 @@ class UserController extends Controller
         
         $user = User::findOrFail($id);
         $empresas = Empresa::where('activo', 1)->pluck('descripcion', 'id');
+        $tipousers = Tipouser::where('activo', 1)->where('empresa_id', Auth::user()->empresa->id)->pluck('descripcion', 'id');
   
-        return view('users.edit', compact('empresas', 'user','segment'));
+        return view('users.edit', compact('empresas','tipousers', 'user','segment'));
     }
   
     /**
@@ -134,6 +138,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'empresa_id' => $request->empresa_id,
+            'tipouser_id' => $request->tipouser_id,
             'activo' => $activo,
         ];
 

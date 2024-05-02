@@ -27,14 +27,10 @@ class Empresa extends Model
         return $this->hasMany(Categoria::class);
     }
 
-    public function subcategorias(): HasMany
+    public function tipousers(): HasMany
     {
-        return $this->hasMany(Subategoria::class);
+        return $this->hasMany(Tipouser::class);
     }
 
-    public function proveedores(): HasMany
-    {
-        return $this->hasMany(Proveedor::class);
-    }
 
 }

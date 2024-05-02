@@ -77,6 +77,16 @@
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <label for="exampleFormControlSelect1" class="form-label">Tipo de usuario</label>
+                                <select class="form-select" id="tipouser_id" name="tipouser_id" aria-label="Default select example">
+
+                                    @foreach($tipousers as $id => $descripcion)
+                                        <option value="{{ $id }}" {{ old('tipouser_id') == $id ? 'selected' : '' }}>{{ $descripcion }}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                  <label for="name" class="form-label">Seleccione una Foto</label>
                                 <input type="file" name="photo" accept="image/*">
                             </div>

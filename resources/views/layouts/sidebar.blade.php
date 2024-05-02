@@ -40,6 +40,15 @@
         </a>
       </li>
     </ul>
+    @if(Auth::user()->root == 1)
+      <ul class="menu-sub">
+        <li class="menu-item @if($segment == 'modules_s') active @endif">
+          <a  href="{{ route('modules') }}" class="menu-link">
+            <div data-i18n="tipousers">Modulos </div>
+          </a>
+        </li>
+      </ul>
+    @endif
   </li>
   <li class="menu-item @if(substr($segment, -1)=='c') open @endif" >
     <a href="javascript:void(0);" class="menu-link menu-toggle">

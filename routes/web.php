@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipouserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,17 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('tipousers.edit');
         Route::put('edit/{id}', 'update')->name('tipousers.update');
         Route::delete('destroy/{id}', 'destroy')->name('tipousers.destroy');
+        Route::get('permiso/{id}', 'permiso')->name('tipousers.permiso');
+    });
+
+     Route::controller(ModuleController::class)->prefix('modules')->group(function () {
+        Route::get('', 'index')->name('modules');
+        Route::get('create', 'create')->name('modules.create');
+        Route::post('store', 'store')->name('modules.store');
+        Route::get('show/{id}', 'show')->name('modules.show');
+        Route::get('edit/{id}', 'edit')->name('modules.edit');
+        Route::put('edit/{id}', 'update')->name('modules.update');
+        Route::delete('destroy/{id}', 'destroy')->name('modules.destroy');
     });
 
    

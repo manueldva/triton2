@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('tipouser_id')->nullable();
-            $table->foreign('tipouser_id')->references('id')->on('tipousers');
+        Schema::create('modules', function (Blueprint $table) {
+            $table->id();
+            $table->string('descripcion', 250);
+            $table->boolean('activo')->default(true);
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('modules');
     }
 };

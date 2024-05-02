@@ -21,4 +21,9 @@ class Tipouser extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 }

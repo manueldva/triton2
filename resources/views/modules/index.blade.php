@@ -1,10 +1,10 @@
 @extends('layouts.app')
   
-@section('title', 'Gestionar Tipo Usuario')
+@section('title', 'Gestionar Modulos')
   
 @section('contents')
     
-    @component('components.modal-create',['url' => route('tipousers.store'), 'descripcion' => 'Tipo Usuario' ])
+    @component('components.modal-create',['url' => route('modules.store'), 'descripcion' => 'Modulo' ])
     @endcomponent
     
     @if(Session::has('success'))
@@ -48,8 +48,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($tipousers->count() > 0)
-                            @foreach($tipousers as $rs)
+                        @if($modules->count() > 0)
+                            @foreach($modules as $rs)
                                 <tr>
                                     <td>
                                         <center>
@@ -69,14 +69,13 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.modal-edit', ['url' => route('tipousers.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Tipo Usuario'])
+                                        @component('components.modal-edit', ['url' => route('modules.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Modulo'])
                                         @endcomponent
 
                                         @component('components.button-menu', [
                                             'menuItems' => [
-                                                ['url' => route('tipousers.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
-                                                ['url' => route('tipousers.permiso', $rs->id), 'label' => 'Permisos'],
-                                                ['url' => route('tipousers.destroy', $rs->id), 'label' => 'Eliminar'],
+                                                ['url' => route('modules.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
+                                                ['url' => route('modules.destroy', $rs->id), 'label' => 'Eliminar'],
                                                 // ... otros ítems del menú
                                             ],
                                             'rs' => $rs // Pasar la categoría como parámetro adicional
@@ -93,13 +92,13 @@
                         @endif
                     </tbody>
                 </table>
-                 @if($tipousers->count() == 1 || $tipousers->count() == 2)
+                 @if($modules->count() == 1 || $modules->count() == 2)
                 <br>
                 <br>
                 <br>
                 @endif
                 <br>
-                {{ $tipousers->appends(['descripcion' => request('descripcion')])->links() }}
+                {{ $modules->appends(['descripcion' => request('descripcion')])->links() }}
             </div>
 
         </div>

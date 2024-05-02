@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TipouserController extends Controller
 {
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $query = $request->input('descripcion');
         $segment = 'tipousers_s';
@@ -138,5 +138,18 @@ class TipouserController extends Controller
         $tipouser->delete();
   
         return redirect()->route('tipousers')->with('success', 'Tipo de usuario eliminado con éxito');
+    }
+
+
+     /**
+     * Show the form for editing the specified resource.
+     */
+    public function permiso(string $id)
+    {
+        $tipouser = Tipouser::findOrFail($id);
+
+        $segment = 'tipousers_s';
+  
+        return view('tipousers.permiso', compact('tipouser','segment'));
     }
 }

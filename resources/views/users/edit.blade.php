@@ -78,6 +78,16 @@
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <label for="exampleFormControlSelect1" class="form-label">Empresa</label>
+                                <select class="form-select" id="tipouser_id" name="tipouser_id" aria-label="Default select example">
+        
+                                    @foreach($tipousers as $id => $descripcion)
+                                        <option value="{{ $id }}" @if ($id == $user->tipouser_id) selected @endif>{{ $descripcion }}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="photo" class="form-label">Foto</label>
                                 <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
                                 @if ($user->photo)
