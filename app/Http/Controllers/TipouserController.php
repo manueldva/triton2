@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tipouser;
+use App\Models\Module;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -148,8 +149,10 @@ class TipouserController extends Controller
     {
         $tipouser = Tipouser::findOrFail($id);
 
+        $modules = Module::where('activo', 1)->pluck('descripcion', 'id');
+
         $segment = 'tipousers_s';
   
-        return view('tipousers.permiso', compact('tipouser','segment'));
+        return view('tipousers.permiso', compact('tipouser','modules','segment'));
     }
 }
