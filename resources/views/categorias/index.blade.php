@@ -114,13 +114,22 @@
 
 @section('js')
 <script>
+    // En tu archivo JavaScript
     $(document).ready(function() {
+        var form;
+
+        $('.deleteBtn').click(function() {
+            // Guardar el formulario correspondiente al botón "Eliminar" que se ha hecho clic
+            form = $(this).closest('.deleteForm');
+        });
+
         $('#confirmDeleteBtn').click(function() {
-            // Enviar el formulario al hacer clic en el botón "Eliminar"
+            // Enviar el formulario correspondiente al hacer clic en el botón "Eliminar"
             $('#confirmDeleteModal').modal('hide'); // Cerrar el modal de confirmación
-            $('form').submit(); // Enviar el formulario
+            form.submit(); // Enviar el formulario correspondiente
         });
     });
+
 </script>
 @endsection
 

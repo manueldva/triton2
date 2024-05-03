@@ -144,9 +144,9 @@ class CategoriaController extends Controller
     public function destroy(string $id)
     {
         //dd($id);
-        if(Subcategoria::where('categoria_id', $id)->first()) {
+       /* if(Subcategoria::where('categoria_id', $id)->first()) {
             return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
-        }
+        }*/
         
         $categoria = Categoria::findOrFail($id);
   

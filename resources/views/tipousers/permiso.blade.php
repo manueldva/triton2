@@ -33,39 +33,18 @@
                     @endif
                     <div class="card mb-4">
                         <h5 class="card-header"><center>Modulos</center></h5>
-                        <div class="card-body">
+                        <div class="card-body row">
                             @foreach($modules as $id => $descripcion)
-                            <div class="di">
-                                <label class="form-check-label" for="defaultRadio1"> {{ $descripcion }} : </label>
-                                &nbsp; &nbsp; 
-                                <input
-                                name="default-radio-1"
-                                class="form-check-input"
-                                type="radio"
-                                value=""
-                                id="defaultRadio1"
-                                />
-                                <label class="form-check-label" for="defaultRadio1"> SI </label>
-                                &nbsp; &nbsp; 
-                          
-                                <input
-                                name="default-radio-1"
-                                class="form-check-input"
-                                type="radio"
-                                value=""
-                                id="defaultRadio2"
-                                checked
-                                />
-                                <label class="form-check-label" for="defaultRadio2"> NO </label>
-                            
+                            <div class="form-check flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" value="" id="{{$id}}" />
+                                &nbsp;
+                                <label class="form-check-label" for="{{$id}}"> <h6>{{ $descripcion }}</h6></label>  
                             </div>
-                            
-                            @endforeach
 
-                           
-                            <br>
+                            @endforeach
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

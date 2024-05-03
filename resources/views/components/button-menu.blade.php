@@ -12,11 +12,20 @@
                     </button>
                 </li>
             @elseif($item['label'] == 'Eliminar')
-                <li>
+                <!--<li>
                     <form action="{{ $item['url'] }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                            Eliminar
+                        </button>
+                    </form>
+                </li>-->
+                <li>
+                    <form class="deleteForm" action="{{ $item['url'] }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="dropdown-item deleteBtn" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                             Eliminar
                         </button>
                     </form>
