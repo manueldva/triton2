@@ -26,4 +26,9 @@ class Tipouser extends Model
     {
         return $this->belongsTo(Empresa::class);
     }
+
+    public function tipouserpermiso(): BelongsTo
+    {
+        return $this->belongsTo(Tipouserpermiso::class);
+    }
 }

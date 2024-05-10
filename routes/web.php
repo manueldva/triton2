@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::put('edit/{id}', 'update')->name('tipousers.update');
         Route::delete('destroy/{id}', 'destroy')->name('tipousers.destroy');
         Route::get('permiso/{id}', 'permiso')->name('tipousers.permiso');
+         Route::put('permiso/{id}', 'permisoupdate')->name('tipousers.permisoupdate');
     });
 
      Route::controller(ModuleController::class)->prefix('modules')->group(function () {

@@ -32,5 +32,10 @@ class Empresa extends Model
         return $this->hasMany(Tipouser::class);
     }
 
+     public function tipouserpermisos(): HasMany
+    {
+        return $this->hasMany(TipouserPermiso::class);
+    }
+
 
 }

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -58,4 +60,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tipouser::class);
     }
+
+    public function getPermiso($parametro)
+    {
+        // Aquí puedes hacer tu consulta SQL utilizando el parámetro
+        $result = DB::table('users')
+            ->join('tipouserpermisos', 'users.tipouser_id', '=', 'tipouserpermisos.tipouser_id')
+            ->join('modules', 'tipouserpermisos.module_id', '=', 'modules.id')
+            ->where('modules.descripcion', $parametro)
+            ->where('users.id', $this->id)  // asumiendo que 'user_id' es la columna de la tabla que se relaciona con este usuario
+            ->select('modules.id')  // selecciona las columnas que necesites
+            ->first();
+
+
+        // Si $result no es null, entonces se encontró un registro
+        // En ese caso, devuelve 1. De lo contrario, verifica si el usuario es un usuario root
+        return $result ? 1 : ($this->root ? 1 : 0);
+    }
+
 }

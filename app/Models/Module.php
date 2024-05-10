@@ -17,4 +17,8 @@ class Module extends Model
     ];
 
     
+    public function tipouserpermiso(): BelongsTo
+    {
+        return $this->belongsTo(Tipouserpermiso::class);
+    }
 }

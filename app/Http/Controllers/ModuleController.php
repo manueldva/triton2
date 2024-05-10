@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\User;
+use App\Models\Tipouserpermiso;
 use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends Controller
@@ -95,9 +96,9 @@ class ModuleController extends Controller
     public function destroy(string $id)
     {
         //dd($id);
-        /*if(Subcategoria::where('categoria_id', $id)->first()) {
-            return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
-        }*/
+        if(Tipouserpermiso::where('module_id', $id)->first()) {
+            return back()->with('danger', 'No se puede eliminar este modulo. Tiene registros asociados.');
+        }
         
         $module = Module::findOrFail($id);
   

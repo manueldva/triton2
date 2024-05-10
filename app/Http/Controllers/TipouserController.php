@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tipouser;
+use App\Models\Tipouserpermiso;
 use App\Models\Module;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -130,9 +131,13 @@ class TipouserController extends Controller
     public function destroy(string $id)
     {
         //dd($id);
-        /*if(Subcategoria::where('categoria_id', $id)->first()) {
-            return back()->with('danger', 'No se puede eliminar esta Categoria. Tiene registros asociados.');
-        }*/
+        if(User::where('tipouser_id', $id)->first()) {
+            return back()->with('danger', 'No se puede eliminar este tipo de usuario. Tiene registros asociados.');
+        }
+
+        if(Tipouserpermiso::where('tipouser_id', $id)->first()) {
+            return back()->with('danger', 'No se puede eliminar este tipo de usuario. Tiene registros asociados.');
+        }
         
         $tipouser = Tipouser::findOrFail($id);
   
@@ -151,8 +156,41 @@ class TipouserController extends Controller
 
         $modules = Module::where('activo', 1)->pluck('descripcion', 'id');
 
+       $permisos = Tipouserpermiso::where('tipouser_id', $id)->pluck('module_id')->toArray();
+
+        //dd($permisos);
+
         $segment = 'tipousers_s';
   
-        return view('tipousers.permiso', compact('tipouser','modules','segment'));
+        return view('tipousers.permiso', compact('tipouser','modules','segment','permisos'));
+    }
+
+    /**
+     * permiso Update the specified resource in storage.
+     */
+    public function permisoupdate(Request $request, string $id)
+    {
+        
+        $permisos = $request->modulos;
+
+        Tipouserpermiso::where('tipouser_id', $id)->delete();
+
+        if (isset($permisos))  {
+
+            foreach ($permisos as $key => $value) {
+                $tipouserpermiso = new Tipouserpermiso;
+                    $tipouserpermiso->tipouser_id = $id;
+                    $tipouserpermiso->module_id   = $value;
+                    $tipouserpermiso->empresa_id  = Auth::user()->empresa->id;
+                $tipouserpermiso->save();
+            }
+        }
+        
+        //dd($permisos);
+
+  
+        //return back()->with('success', 'Permisos editado con éxito');
+        return redirect()->route('tipousers')->with('success', 'Permisos editados con éxito');
+        //return redirect()->route('categorias.edit', $categoria->id)->with('success', 'Categoria editada con éxito');
     }
 }
