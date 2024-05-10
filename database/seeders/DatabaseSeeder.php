@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\Categoria;
+use App\Models\Module;
 use App\Models\Tipouser;
 
 class DatabaseSeeder extends Seeder
@@ -51,8 +52,33 @@ class DatabaseSeeder extends Seeder
             'root' => false,
         ]);
 
+        DB::table('modules')->insert([
+            'descripcion' => 'Dashboard',
+            'activo' => true
+        ]);
+
+        DB::table('modules')->insert([
+            'descripcion' => 'Seguridad',
+            'activo' => true
+        ]);
+
+        DB::table('modules')->insert([
+            'descripcion' => 'Usuario',
+            'activo' => true
+        ]);
+
+        DB::table('modules')->insert([
+            'descripcion' => 'Tipo Usuario',
+            'activo' => true
+        ]);
+
+        DB::table('modules')->insert([
+            'descripcion' => 'Complementos',
+            'activo' => true
+        ]);
+
 
         Categoria::factory(100)->create();
-        Tipouser::factory(20)->create();
+        Tipouser::factory(5)->create();
     }
 }

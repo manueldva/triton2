@@ -78,7 +78,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleFormControlSelect1" class="form-label">Empresa</label>
+                                <label for="exampleFormControlSelect1" class="form-label">Tipo Usuario</label>
                                 <select class="form-select" id="tipouser_id" name="tipouser_id" aria-label="Default select example">
         
                                     @foreach($tipousers as $id => $descripcion)
