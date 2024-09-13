@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tipouser extends Model
 {
-     use HasFactory;
+    use HasFactory;
     use HasApiTokens, HasFactory;
     
     protected $fillable = [

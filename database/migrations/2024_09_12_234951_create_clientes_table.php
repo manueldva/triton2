@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nombre', 300);
             $table->string('email')->unique();
             $table->string('contacto')->nulleable();
+            $table->string('photo')->nullable();
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

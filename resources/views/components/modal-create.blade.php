@@ -13,6 +13,10 @@
                         <label for="descripcion" class="form-label">Descripción</label>
                         <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese el texto" required maxlength="250">
                     </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" required min=1>
+                    </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" checked>
                         <label class="form-check-label" for="activo">Activo</label>

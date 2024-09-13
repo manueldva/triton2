@@ -8,6 +8,7 @@ use App\Http\Controllers\TipouserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\TipomembresiaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +92,7 @@ Route::middleware('auth')->group(function () {
          Route::put('permiso/{id}', 'permisoupdate')->name('tipousers.permisoupdate');
     });
 
-     Route::controller(ModuleController::class)->prefix('modules')->group(function () {
+    Route::controller(ModuleController::class)->prefix('modules')->group(function () {
         Route::get('', 'index')->name('modules');
         Route::get('create', 'create')->name('modules.create');
         Route::post('store', 'store')->name('modules.store');
@@ -99,6 +100,16 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('modules.edit');
         Route::put('edit/{id}', 'update')->name('modules.update');
         Route::delete('destroy/{id}', 'destroy')->name('modules.destroy');
+    });
+
+    Route::controller(TipomembresiaController::class)->prefix('modules')->group(function () {
+        Route::get('', 'index')->name('tipomembresias');
+        Route::get('create', 'create')->name('tipomembresias.create');
+        Route::post('store', 'store')->name('tipomembresias.store');
+        Route::get('show/{id}', 'show')->name('tipomembresias.show');
+        Route::get('edit/{id}', 'edit')->name('tipomembresias.edit');
+        Route::put('edit/{id}', 'update')->name('tipomembresias.update');
+        Route::delete('destroy/{id}', 'destroy')->name('tipomembresias.destroy');
     });
 
    
