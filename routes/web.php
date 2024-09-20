@@ -102,7 +102,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{id}', 'destroy')->name('modules.destroy');
     });
 
-    Route::controller(TipomembresiaController::class)->prefix('modules')->group(function () {
+    Route::controller(TipomembresiaController::class)->prefix('tipomembresias')->group(function () {
         Route::get('', 'index')->name('tipomembresias');
         Route::get('create', 'create')->name('tipomembresias.create');
         Route::post('store', 'store')->name('tipomembresias.store');
