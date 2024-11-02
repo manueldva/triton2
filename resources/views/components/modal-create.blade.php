@@ -13,14 +13,20 @@
                         <label for="descripcion" class="form-label">Descripción</label>
                         <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese el texto" required maxlength="250">
                     </div>
-                    <div class="mb-3">
-                        <label for="precio" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" required min=1>
-                    </div>
+                    <!-- Campos adicionales dinámicos -->
+                    @if(isset($extraCampos))
+                        @foreach ($extraCampos as $campo)
+                            <div class="mb-3">
+                                <label for="{{ $campo['name'] }}" class="form-label">{{ $campo['label'] }}</label>
+                                <input type="{{ $campo['type'] }}" class="form-control" id="{{ $campo['name'] }}" name="{{ $campo['name'] }}" placeholder="{{ $campo['placeholder'] ?? '' }}" {{ $campo['required'] ? 'required' : '' }}>
+                            </div>
+                        @endforeach
+                    @endif
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" id="activo" name="activo" checked>
                         <label class="form-check-label" for="activo">Activo</label>
                     </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Guardar</button>

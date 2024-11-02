@@ -4,8 +4,16 @@
   
 @section('contents')
     
-    @component('components.modal-create',['url' => route('tipomembresias.store'), 'descripcion' => 'Tipo Membresia' ])
+
+    @component('components.modal-create', [
+        'url' => route('tipomembresias.store'),
+        'descripcion' => 'Tipo Membresia',
+        'extraCampos' => [
+            ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'required' => false]
+        ]
+    ])
     @endcomponent
+
     
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
@@ -69,13 +77,18 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.modal-edit', ['url' => route('tipomembresias.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Tipo Membresia'])
+                                        @component('components.modal-edit', [
+                                            'url' => route('tipomembresias.edit', $rs->id),
+                                            'rs' => $rs,
+                                            'descripcion' => 'Tipo Membresia',
+                                            'extraCampos' => [
+                                                ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'value' => $rs->amount]
+                                            ]
+                                        ])
                                         @endcomponent
-
                                         @component('components.button-menu', [
                                             'menuItems' => [
                                                 ['url' => route('tipomembresias.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
-                                                ['url' => route('tipomembresias.permiso', $rs->id), 'label' => 'Permisos'],
                                                 ['url' => route('tipomembresias.destroy', $rs->id), 'label' => 'Eliminar'],
                                                 // ... otros ítems del menú
                                             ],
