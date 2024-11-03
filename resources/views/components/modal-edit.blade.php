@@ -19,7 +19,7 @@
                         @foreach ($extraCampos as $campo)
                             <div class="mb-3 text-start">
                                 <label for="{{ $campo['name'] }}" class="form-label">{{ $campo['label'] }}</label>
-                                <input type="{{ $campo['type'] }}" class="form-control" id="{{ $campo['name'] }}" name="{{ $campo['name'] }}" placeholder="{{ $campo['placeholder'] ?? '' }}" value="{{ $campo['value'] ?? '' }}">
+                                <input type="{{ $campo['type'] }}" class="form-control" id="{{ $campo['name'] }}" name="{{ $campo['name'] }}" placeholder="{{ $campo['placeholder'] ?? '' }}" value="{{ $campo['value'] ?? '' }}" {{ $campo['required'] ? 'required' : '' }}>
                             </div>
                         @endforeach
                     @endif

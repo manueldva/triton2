@@ -9,7 +9,7 @@
         'url' => route('tipomembresias.store'),
         'descripcion' => 'Tipo Membresia',
         'extraCampos' => [
-            ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'required' => false]
+            ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'required' => true]
         ]
     ])
     @endcomponent
@@ -82,7 +82,7 @@
                                             'rs' => $rs,
                                             'descripcion' => 'Tipo Membresia',
                                             'extraCampos' => [
-                                                ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'value' => $rs->amount]
+                                                ['label' => 'Precio', 'name' => 'amount', 'type' => 'number', 'placeholder' => 'Ingrese el precio', 'required' => true, 'value' => $rs->amount]
                                             ]
                                         ])
                                         @endcomponent
