@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tipocontactos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->string('descripcion', 250);
             $table->boolean('activo')->default(true);
             $table->timestamps();

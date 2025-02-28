@@ -16,6 +16,14 @@
       </a>
     </li>
   @endif
+  @if(Auth::user()->getPermiso('Cliente') == 1)
+    <li class="menu-item @if($segment == 'clientes') active @endif">
+      <a  href="{{ route('clientes') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-user"></i>
+        <div data-i18n="Analytics">Cliente</div>
+      </a>
+    </li>
+  @endif
   <!--<li class="menu-item @if($segment == 'users') active @endif">
     <a  href="{{ route('users') }}" class="menu-link">
       <i class="menu-icon tf-icons bx bx-user"></i>

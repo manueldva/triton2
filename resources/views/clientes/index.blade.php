@@ -1,11 +1,21 @@
 @extends('layouts.app')
   
-@section('title', 'Gestionar Modulos')
+@section('title', 'Gestionar Clientes')
   
 @section('contents')
     
-    @component('components.modal-create',['url' => route('modules.store'), 'descripcion' => 'Modulo' ])
+    @component('components.modal-create', [
+        'url' => route('clientes.store'),
+        'descripcion' => 'Cliente',
+        'extraCampos' => [
+            ['label' => 'Nombre', 'name' => 'nombre', 'type' => 'text', 'placeholder' => 'Ingrese un nombre', 'required' => true],
+            ['label' => 'Tipo de Contacto', 'name' => 'tipocontacto_id', 'type' => 'select', 'options' => $tipocontactos, 'required' => true],
+            ['label' => 'Contacto', 'name' => 'contacto', 'type' => 'text', 'placeholder' => 'Ingrese un contacto', 'required' => true]
+        ],
+        'mostrarDescripcion' => false
+    ])
     @endcomponent
+    
     
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
@@ -26,7 +36,7 @@
             <div class="demo-inline-spacing d-flex align-items-center justify-content-between">
                 <form>
                     <div class="input-group">
-                        <input type="text" name="descripcion" class="form-control" placeholder="Buscar por descripción" value="{{ request('descripcion') }}">
+                        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre" value="{{ request('nombre') }}">
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
@@ -42,21 +52,21 @@
                     <thead>
                         <tr>
                             <th><center>#</center></th>
-                            <th><center>Descripcion</center></th>
+                            <th><center>Nombre</center></th>
                             <th><center>Activo</center></th>
                             <th><center>Action</center></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($modules->count() > 0)
-                            @foreach($modules as $rs)
+                        @if($clientes->count() > 0)
+                            @foreach($clientes as $rs)
                                 <tr>
                                     <td>
                                         <center>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong>
                                         </center>
                                     </td>
-                                    <td><center>{{ $rs->descripcion }}</center></td>
+                                    <td><center>{{ $rs->nombre }}</center></td>
                                     <td>
                                         <center>
                                         @if($rs->activo == 1)
@@ -69,13 +79,13 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.modal-edit', ['url' => route('modules.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Modulo'])
+                                        @component('components.modal-edit', ['url' => route('clientes.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Cliente'])
                                         @endcomponent
 
                                         @component('components.button-menu', [
                                             'menuItems' => [
-                                                ['url' => route('modules.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
-                                                ['url' => route('modules.destroy', $rs->id), 'label' => 'Eliminar'],
+                                                ['url' => route('clientes.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
+                                                ['url' => route('clientes.destroy', $rs->id), 'label' => 'Eliminar'],
                                                 // ... otros ítems del menú
                                             ],
                                             'rs' => $rs // Pasar la categoría como parámetro adicional
@@ -87,18 +97,18 @@
                             @endforeach
                         @else
                             <tr>
-                                <td class="text-center" colspan="5">Tipo usuario no encontrado</td>
+                                <td class="text-center" colspan="5">Cliente no encontrada</td>
                             </tr>
                         @endif
                     </tbody>
                 </table>
-                 @if($modules->count() == 1 || $modules->count() == 2)
+                 @if($clientes->count() == 1 || $clientes->count() == 2)
                 <br>
                 <br>
                 <br>
                 @endif
                 <br>
-                {{ $modules->appends(['descripcion' => request('descripcion')])->links() }}
+                {{ $clientes->appends(['nombre' => request('nombre')])->links() }}
             </div>
 
         </div>
@@ -114,8 +124,8 @@
 
 @section('js')
 <script>
-     // En tu archivo JavaScript
-     $(document).ready(function() {
+    // En tu archivo JavaScript
+    $(document).ready(function() {
         var form;
 
         $('.deleteBtn').click(function() {
@@ -129,6 +139,7 @@
             form.submit(); // Enviar el formulario correspondiente
         });
     });
+
 </script>
 @endsection
 

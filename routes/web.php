@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\TipomembresiaController;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,16 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('tipomembresias.edit');
         Route::put('edit/{id}', 'update')->name('tipomembresias.update');
         Route::delete('destroy/{id}', 'destroy')->name('tipomembresias.destroy');
+    });
+
+    Route::controller(ClienteController::class)->prefix('clientes')->group(function () {
+        Route::get('', 'index')->name('clientes');
+        Route::get('create', 'create')->name('clientes.create');
+        Route::post('store', 'store')->name('clientes.store');
+        Route::get('show/{id}', 'show')->name('clientes.show');
+        Route::get('edit/{id}', 'edit')->name('clientes.edit');
+        Route::put('edit/{id}', 'update')->name('clientes.update');
+        Route::delete('destroy/{id}', 'destroy')->name('clientes.destroy');
     });
 
    
