@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tipocontacto_id')->nulleable();
             $table->foreign('tipocontacto_id')->references('id')->on('tipocontactos');
             $table->string('nombre', 300);
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nulleable();
             $table->string('contacto')->nulleable();
             $table->string('photo')->nullable();
             $table->boolean('activo')->default(true);

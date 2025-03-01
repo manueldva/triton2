@@ -79,7 +79,17 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.modal-edit', ['url' => route('clientes.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Cliente'])
+                                        @component('components.modal-edit', [
+                                            'url' => route('clientes.edit', $rs->id),
+                                            'rs' => $rs,
+                                            'descripcion' => 'Tipo Membresia',
+                                            'extraCampos' => [
+                                                ['label' => 'Nombre', 'name' => 'nombre', 'type' => 'text', 'placeholder' => 'Ingrese un nombre', 'required' => true, 'value' => $rs->nombre],
+                                                ['label' => 'Tipo de Contacto', 'name' => 'tipocontacto_id', 'type' => 'select', 'options' => $tipocontactos, 'required' => true, 'options' => $tipocontactos,'value' => $rs->tipocontacto_id],
+                                                ['label' => 'Contacto', 'name' => 'contacto', 'type' => 'text', 'placeholder' => 'Ingrese un contacto', 'required' => true, 'value' => $rs->contacto]
+                                            ],
+                                            'mostrarDescripcion' => false
+                                        ])
                                         @endcomponent
 
                                         @component('components.button-menu', [
