@@ -86,6 +86,6 @@ class DatabaseSeeder extends Seeder
 
         Categoria::factory(100)->create();
         Tipouser::factory(5)->create();
-        //Tipocontacto::factory(5)->create();
+        Tipocontacto::factory(5)->create();
     }
 }

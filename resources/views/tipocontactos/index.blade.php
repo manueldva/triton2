@@ -1,22 +1,12 @@
 @extends('layouts.app')
   
-@section('title', 'Gestionar Clientes')
+@section('title', 'Gestionar Tipo Contacto')
   
 @section('contents')
     
-    @component('components.modal-create', [
-        'url' => route('clientes.store'),
-        'descripcion' => 'Cliente',
-        'extraCampos' => [
-            ['label' => 'Nombre', 'name' => 'nombre', 'type' => 'text', 'placeholder' => 'Ingrese un nombre', 'required' => true],
-            ['label' => 'Domicilio', 'name' => 'domicilio', 'type' => 'text', 'placeholder' => 'Ingrese un domicilio', 'required' => false],
-            ['label' => 'Tipo de Contacto', 'name' => 'tipocontacto_id', 'type' => 'select', 'options' => $tipocontactos, 'required' => true],
-            ['label' => 'Contacto', 'name' => 'contacto', 'type' => 'text', 'placeholder' => 'Ingrese un contacto', 'required' => true]
-        ],
-        'mostrarDescripcion' => false
-    ])
+
+    @component('components.modal-create',['url' => route('tipocontactos.store'), 'descripcion' => 'Tipo Contacto' ])
     @endcomponent
-    
     
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
@@ -28,15 +18,6 @@
             {{ Session::get('danger') }}
         </div>
     @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <!-- Bordered Table -->
     <div class="card">
@@ -46,7 +27,7 @@
             <div class="demo-inline-spacing d-flex align-items-center justify-content-between">
                 <form>
                     <div class="input-group">
-                        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre" value="{{ request('nombre') }}">
+                        <input type="text" name="descripcion" class="form-control" placeholder="Buscar por descripción" value="{{ request('descripcion') }}">
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
@@ -62,21 +43,21 @@
                     <thead>
                         <tr>
                             <th><center>#</center></th>
-                            <th><center>Nombre</center></th>
+                            <th><center>Descripcion</center></th>
                             <th><center>Activo</center></th>
                             <th><center>Action</center></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($clientes->count() > 0)
-                            @foreach($clientes as $rs)
+                        @if($tipocontactos->count() > 0)
+                            @foreach($tipocontactos as $rs)
                                 <tr>
                                     <td>
                                         <center>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong>
                                         </center>
                                     </td>
-                                    <td><center>{{ $rs->nombre }}</center></td>
+                                    <td><center>{{ $rs->descripcion }}</center></td>
                                     <td>
                                         <center>
                                         @if($rs->activo == 1)
@@ -89,24 +70,12 @@
                                     <td>
                                         <center>
                                         <!-- Aquí incluirías el componente del modal de edición -->
-                                        @component('components.modal-edit', [
-                                            'url' => route('clientes.edit', $rs->id),
-                                            'rs' => $rs,
-                                            'descripcion' => 'Tipo Membresia',
-                                            'extraCampos' => [
-                                                ['label' => 'Nombre', 'name' => 'nombre', 'type' => 'text', 'placeholder' => 'Ingrese un nombre', 'required' => true, 'value' => $rs->nombre],
-                                                ['label' => 'Domicilio', 'name' => 'domicilio', 'type' => 'text', 'placeholder' => 'Ingrese un domicilio', 'required' => false, 'value' => $rs->domicilio],
-                                                ['label' => 'Tipo de Contacto', 'name' => 'tipocontacto_id', 'type' => 'select', 'options' => $tipocontactos, 'required' => true, 'options' => $tipocontactos,'value' => $rs->tipocontacto_id],
-                                                ['label' => 'Contacto', 'name' => 'contacto', 'type' => 'text', 'placeholder' => 'Ingrese un contacto', 'required' => true, 'value' => $rs->contacto]
-                                            ],
-                                            'mostrarDescripcion' => false
-                                        ])
+                                        @component('components.modal-edit', ['url' => route('tipocontactos.edit', $rs->id), 'rs' => $rs, 'descripcion' => 'Tipo Contacto'])
                                         @endcomponent
-
                                         @component('components.button-menu', [
                                             'menuItems' => [
-                                                ['url' => route('clientes.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
-                                                ['url' => route('clientes.destroy', $rs->id), 'label' => 'Eliminar'],
+                                                ['url' => route('tipocontactos.edit', $rs->id), 'label' => 'Editar', 'modal' => true, 'modalTarget' => '#modalEdit'.$rs->id],
+                                                ['url' => route('tipocontactos.destroy', $rs->id), 'label' => 'Eliminar'],
                                                 // ... otros ítems del menú
                                             ],
                                             'rs' => $rs // Pasar la categoría como parámetro adicional
@@ -118,18 +87,18 @@
                             @endforeach
                         @else
                             <tr>
-                                <td class="text-center" colspan="5">Cliente no encontrada</td>
+                                <td class="text-center" colspan="5">Tipo de contacto no encontrado</td>
                             </tr>
                         @endif
                     </tbody>
                 </table>
-                 @if($clientes->count() == 1 || $clientes->count() == 2)
+                 @if($tipocontactos->count() == 1 || $tipocontactos->count() == 2)
                 <br>
                 <br>
                 <br>
                 @endif
                 <br>
-                {{ $clientes->appends(['nombre' => request('nombre')])->links() }}
+                {{ $tipocontactos->appends(['descripcion' => request('descripcion')])->links() }}
             </div>
 
         </div>
@@ -145,8 +114,8 @@
 
 @section('js')
 <script>
-    // En tu archivo JavaScript
-    $(document).ready(function() {
+     // En tu archivo JavaScript
+     $(document).ready(function() {
         var form;
 
         $('.deleteBtn').click(function() {
@@ -160,7 +129,6 @@
             form.submit(); // Enviar el formulario correspondiente
         });
     });
-
 </script>
 @endsection
 

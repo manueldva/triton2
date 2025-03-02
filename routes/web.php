@@ -9,7 +9,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\TipomembresiaController;
+use App\Http\Controllers\TipocontactoController;
 use App\Http\Controllers\ClienteController;
+use App\Models\Tipocontacto;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +123,16 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('clientes.edit');
         Route::put('edit/{id}', 'update')->name('clientes.update');
         Route::delete('destroy/{id}', 'destroy')->name('clientes.destroy');
+    });
+
+    Route::controller(TipocontactoController::class)->prefix('tipocontactos')->group(function () {
+        Route::get('', 'index')->name('tipocontactos');
+        Route::get('create', 'create')->name('tipocontactos.create');
+        Route::post('store', 'store')->name('tipocontactos.store');
+        Route::get('show/{id}', 'show')->name('tipocontactos.show');
+        Route::get('edit/{id}', 'edit')->name('tipocontactos.edit');
+        Route::put('edit/{id}', 'update')->name('tipocontactos.update');
+        Route::delete('destroy/{id}', 'destroy')->name('tipocontactos.destroy');
     });
 
    

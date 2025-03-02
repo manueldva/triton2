@@ -14,7 +14,7 @@ class Cliente extends Model
     use HasApiTokens, HasFactory;
     
     protected $fillable = [
-        'empresa_id','tipocontacto_id','nombre','email','contacto','photo','activo'
+        'empresa_id','tipocontacto_id','nombre','domicilio','email','contacto','photo','activo'
     ];
 
     public function tipocontactos(): HasMany

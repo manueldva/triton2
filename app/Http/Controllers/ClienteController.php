@@ -34,11 +34,10 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         
-        /*
         $request->validate([
-            'descripcion' => 'required|max:250',
-           
-        ]);*/
+            'nombre' => 'required|max:300',
+            'nombre' => 'max:400', 
+        ]);
 
         $existe = Cliente::where('nombre', $request->input('nombre'))
         ->where('empresa_id', Auth::user()->empresa->id)

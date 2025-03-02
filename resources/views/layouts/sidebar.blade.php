@@ -84,6 +84,11 @@
             <div data-i18n="categorias">T. Membresia</div>
           </a>
         </li>
+        <li class="menu-item @if($segment == 'tipocontactos_c') active @endif">
+          <a  href="{{ route('tipocontactos') }}" class="menu-link">
+            <div data-i18n="categorias">T. Contacto</div>
+          </a>
+        </li>
        
       </ul>
     </li>
