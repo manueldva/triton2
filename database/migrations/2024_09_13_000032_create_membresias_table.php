@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->date('fechainicio');
-            $table->date('fechafin')->nulleable();
-            $table->integer('diavencimiento')->nulleable();
+            $table->date('fechafin')->nullable();
+            $table->integer('diavencimiento')->nullable();
             $table->decimal('amount', $precision = 10, $scale = 2);
             $table->boolean('activo')->default(true);
             $table->timestamps();

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\Categoria;
 use App\Models\Module;
 use App\Models\Tipouser;
+use App\Models\Tipocontacto;
 
 class DatabaseSeeder extends Seeder
 {
@@ -77,8 +78,14 @@ class DatabaseSeeder extends Seeder
             'activo' => true
         ]);
 
+        DB::table('modules')->insert([
+            'descripcion' => 'Cliente',
+            'activo' => true
+        ]);
+
 
         Categoria::factory(100)->create();
         Tipouser::factory(5)->create();
+        //Tipocontacto::factory(5)->create();
     }
 }

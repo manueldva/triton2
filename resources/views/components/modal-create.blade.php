@@ -25,7 +25,7 @@
                             @if($campo['type'] === 'select' && isset($campo['options']))
                                 <div class="mb-3">
                                     <label for="{{ $campo['name'] }}" class="form-label">{{ $campo['label'] }}</label>
-                                    <select class="form-select" id="{{ $campo['name'] }}" name="{{ $campo['name'] }}">
+                                    <select class="form-select" id="{{ $campo['name'] }}" name="{{ $campo['name'] }}" {{ $campo['required'] ? 'required' : '' }}>
                                         <!--<option value="">Seleccione una opción</option>-->
                                         @foreach($campo['options'] as $id => $descripcion)
                                             <option value="{{ $id }}">{{ $descripcion }}</option>

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas');
-            $table->unsignedBigInteger('tipocontacto_id')->nulleable();
+            $table->unsignedBigInteger('tipocontacto_id')->nullable();
             $table->foreign('tipocontacto_id')->references('id')->on('tipocontactos');
             $table->string('nombre', 300);
-            $table->string('email')->unique()->nulleable();
-            $table->string('contacto')->nulleable();
+            $table->string('email')->unique()->nullable();
+            $table->string('contacto')->nullable();
             $table->string('photo')->nullable();
             $table->boolean('activo')->default(true);
             $table->timestamps();
